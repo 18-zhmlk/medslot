@@ -1,0 +1,36 @@
+{% extends "booking/base.html" %}
+{% load static %}
+
+{% block title %}Подтверждение записи — Lumi Clinic{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/appointments.css' %}?v=2.4">
+{% endblock %}
+
+{% block content %}
+<div class="appointments-container" style="max-width: 650px; justify-content: center; min-height: 72vh; font-family: 'Montserrat', sans-serif;">
+    <div class="empty" style="text-align: left; margin: auto; width: 100%; font-family: 'Montserrat', sans-serif;">
+        <h1 style="text-align: center; margin-top: 0; margin-bottom: 25px; font-size: 26px; font-family: 'Montserrat', sans-serif;">Подтвердите запись</h1>
+        
+        <div class="appointment-card" style="cursor: default; margin-bottom: 25px; box-shadow: none; border: 1px solid var(--light-blue); font-family: 'Montserrat', sans-serif;">
+            <div class="doctor" style="font-family: 'Montserrat', sans-serif;">{{ doctor.name }}</div>
+            <div class="specialty" style="font-family: 'Montserrat', sans-serif;">{{ doctor.specialty }}</div>
+            {% if service %}
+                <div class="service" style="font-family: 'Montserrat', sans-serif;">Услуга: <strong>{{ service.name }}</strong></div>
+            {% endif %}
+            <div class="date" style="font-family: 'Montserrat', sans-serif;">📅 {{ slot.date|date:"d.m.Y" }} в {{ slot.time|time:"H:i" }}</div>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" style="width: 100%; padding: 14px; background: var(--primary); color: var(--white); border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 15px; cursor: pointer; transition: background 0.2s; font-family: 'Montserrat', sans-serif;">
+                Подтвердить и записаться
+            </button>
+        </form>
+        
+        <p style="margin-top: 15px; font-size: 13px; color: var(--dark-gray); text-align: center; font-family: 'Montserrat', sans-serif;">
+            Нажимая кнопку, вы подтверждаете корректность выбранного времени и соглашаетесь с условиями приёма.
+        </p>
+    </div>
+</div>
+{% endblock %}

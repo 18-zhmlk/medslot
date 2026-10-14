@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #015A84;
+    --light-blue: #BAD1DF;
+    --bg-color: #E6ECEF;
+    --white: #FFFFFF;
+    --text-dark: #272727;
+    --dark-gray: #666666;
+    --light-gray: #E0E0E0;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --radius: 12px;
+}
+
+/* Глобальный шрифт Montserrat */
+body, input, select, button, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* --- ТВОИ ИСХОДНЫЕ СТИЛИ ДЛЯ HERO --- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(3px);
+    transform: scale(1);
+    animation: slowZoom 20s infinite alternate ease-in-out;
+}
+
+@keyframes slowZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(1, 90, 132, 0.45);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: var(--white);
+    padding: 0 20px;
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-btn {
+    display: inline-block;
+    background-color: var(--white);
+    color: var(--primary);
+    padding: 14px 32px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, transform 0.2s, color 0.2s;
+}
+
+.hero-btn:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* --- ТВОИ ИСХОДНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПРЕИМУЩЕСТВ --- */
+.features {
+    max-width: 1000px;
+    margin: 40px auto 60px auto; /* Сменили -40px на +40px, чтобы опустить карточки ниже кнопки */
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    border: 1px solid var(--light-blue);
+}
+
+.feature-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* --- СТИЛИ ДЛЯ НОВЫХ СЕКЦИЙ --- */
+.main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px 80px 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--dark-gray);
+    margin-bottom: 35px;
+    font-weight: 500;
+}
+
+/* Статистика */
+.stats-section {
+    background-color: var(--bg-color);
+    padding: 20px 0;
+    margin-bottom: 50px;
+    border: none;
+    box-shadow: none;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--dark-gray);
+    font-weight: 600;
+}
+
+/* О клинике */
+.about-section {
+    margin-bottom: 60px;
+}
+
+.about-card {
+    background-color: var(--bg-color);
+    padding: 10px 0;
+    border: none;
+    box-shadow: none;
+    text-align: center; /* Центрируем заголовки и обычный текст */
+    max-width: 800px;  /* Ограничиваем ширину для лучшей читаемости */
+    margin: 0 auto;    /* Центрируем весь блок */
+}
+
+.about-card h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.about-card .lead {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.about-card p {
+    color: var(--dark-gray);
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.about-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about-list li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.about-list li::before {
+    content: "✓";
+    position: center;
+    left: 0;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+/* Отзывы */
+.reviews-section {
+    margin-bottom: 60px;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.review-card {
+    background: var(--white);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--light-blue);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.review-stars {
+    color: #ffb400;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.review-text {
+    color: var(--text-dark);
+    font-size: 13px;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 18px;
+}
+
+.review-author strong {
+    display: block;
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.review-author span {
+    color: var(--dark-gray);
+    font-size: 12px;
+}
+
+/* FAQ */
+.faq-section {
+    margin-bottom: 20px;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    background: var(--white);
+    padding: 20px 25px;
+    border-radius: var(--radius);
+    border: 1px solid var(--light-blue);
+    box-shadow: var(--shadow);
+}
+
+.faq-item h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.faq-item p {
+    color: var(--dark-gray);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- ПРИЗЫВ К ДЕЙСТВИЮ (CTA) --- */
+.cta-section {
+    background: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 50px 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 60px;
+}
+
+.cta-section h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.cta-section p {
+    font-size: 15px;
+    opacity: 0.9;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.btn-primary.btn-large {
+    display: inline-block;
+    background-color: var(--white);
+    color: var(--primary);
+    padding: 14px 32px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.btn-primary.btn-large:hover {
+    background-color: var(--light-blue);
+    color: var(--primary);
+    transform: translateY(-2px);
+}

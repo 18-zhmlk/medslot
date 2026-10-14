@@ -1,0 +1,110 @@
+{% extends "booking/base.html" %}
+{% load static %}
+
+{% block title %}Профиль — Lumi Clinic{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="avatar">
+                {{ profile.full_name|slice:":1"|upper|default:"У" }}
+            </div>
+            <div>
+                <h1 style="margin: 0; font-size: 22px;">{{ profile.full_name }}</h1>
+                <p style="margin: 4px 0 0; color: var(--dark-gray, #353232); font-size: 14px;">Пациент Lumi Clinic</p>
+            </div>
+        </div>
+
+        <div class="profile-field">
+            <span>ФИО</span>
+            <strong>{{ profile.full_name }}</strong>
+        </div>
+
+        <div class="profile-field">
+            <span>ИИН</span>
+            <strong>{{ profile.iin }}</strong>
+        </div>
+
+        <div class="profile-field">
+            <span>Телефон</span>
+            <div class="phone-row">
+                <strong>{{ profile.phone }}</strong>
+                <button type="button" class="btn-edit" onclick="openPhoneModal()">Изменить</button>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <a href="{% url 'main' %}" class="btn btn-outline">Главная</a>
+            <button type="button" class="btn btn-danger" onclick="openLogout()">Выйти</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно изменения телефона -->
+<div id="phoneModal" class="modal">
+    <div class="modal-content">
+        <h2 style="margin-top: 0; font-size: 20px; color: var(--black);">Изменить номер телефона</h2>
+        <form method="POST" action="{% url 'update_phone' %}">
+            {% csrf_token %}
+            <div style="text-align: left; margin-top: 15px;">
+                <label style="font-size: 13px; font-weight: 600; color: var(--dark-gray);">Новый номер</label>
+                <input type="text" name="phone" value="{{ profile.phone }}" required class="form-input">
+            </div>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-outline" onclick="closePhoneModal()">Отмена</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно выхода -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h2 style="margin-top: 0; font-size: 20px;">Вы уверены, что хотите выйти?</h2>
+        <div class="modal-buttons">
+            <button type="button" class="btn btn-outline" onclick="closeLogout()">Нет</button>
+            <form method="POST" action="{% url 'logout' %}" style="flex: 1; display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" style="width: 100%;">Да, выйти</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openPhoneModal() {
+    document.getElementById("phoneModal").style.display = "flex";
+}
+
+function closePhoneModal() {
+    document.getElementById("phoneModal").style.display = "none";
+}
+
+function openLogout() {
+    document.getElementById("logoutModal").style.display = "flex";
+}
+
+function closeLogout() {
+    document.getElementById("logoutModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    const phoneModal = document.getElementById("phoneModal");
+    const logoutModal = document.getElementById("logoutModal");
+    if (event.target === phoneModal) {
+        closePhoneModal();
+    }
+    if (event.target === logoutModal) {
+        closeLogout();
+    }
+}
+</script>
+{% endblock %}

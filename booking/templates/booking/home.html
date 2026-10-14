@@ -1,0 +1,147 @@
+{% extends "booking/base.html" %}
+{% load static %}
+
+{% block title %}Запись на приём — Lumi Clinic{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/booking.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="booking-container">
+    <h1 class="page-title">Запишитесь на приём за пару кликов</h1>
+
+    {% if error %}
+        <div class="auth-error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <!-- Форма фильтров -->
+    <form method="GET" action="{% url 'home' %}" class="filter-card">
+        <select name="doctor" id="doctorSelect" onchange="filterServices()">
+            <option value="">Специалист/Врач</option>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}" {% if request.GET.doctor == doctor.id|stringformat:"i" %}selected{% endif %}>
+                    {{ doctor.name }} ({{ doctor.specialty }})
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="service" id="serviceSelect">
+            <option value="">Услуга</option>
+            {% for service in services %}
+                <option value="{{ service.id }}" data-doctor-id="{{ service.doctor_id }}" {% if request.GET.service == service.id|stringformat:"i" %}selected{% endif %}>
+                    {{ service.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <input type="date" name="date" value="{{ request.GET.date }}">
+
+        <button type="submit" class="btn-search">Найти</button>
+    </form>
+
+    <!-- Список карточек врачей -->
+    <div class="doctors-list">
+        {% for doctor in filtered_doctors %}
+        <div class="doctor-card">
+            <!-- Единая аватарка для всех врачей -->
+            <img src="{% static 'images/download.jpg' %}" alt="{{ doctor.name }}" class="avatar-img">
+            
+            <div class="doctor-info">
+                <div class="doctor-name">{{ doctor.name }} · <span class="doctor-specialty">{{ doctor.specialty }}</span></div>
+                
+                {% if doctor.services.first %}
+                    <div class="service-title">{{ doctor.services.first.name }}</div>
+                {% endif %}
+
+                <div class="slots-label">Свободные окошки:</div>
+                <div class="slots-group">
+                    {% for slot in doctor.available_slots %}
+                        <button type="button" class="slot-btn" onclick="selectSlot(this, '{{ slot.id }}', '{{ doctor.id }}')">
+                            {{ slot.time|time:"H:i" }}
+                        </button>
+                    {% empty %}
+                        <span class="no-slots">Нет свободных окошек</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <form method="POST" action="{% url 'home' %}" onsubmit="return validateBookingForm(this)">
+                {% csrf_token %}
+                <input type="hidden" name="doctor" value="{{ doctor.id }}">
+                <input type="hidden" name="service" value="{{ request.GET.service }}">
+                <input type="hidden" name="slot" id="selectedSlotInput_{{ doctor.id }}" value="" required>
+
+                {% if not user.is_authenticated %}
+                    <div class="guest-inputs">
+                        <input type="text" name="full_name" placeholder="Ваше ФИО" required>
+                        <input type="text" name="phone" placeholder="Телефон" required>
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="btn-book">Записаться</button>
+            </form>
+        </div>
+        {% empty %}
+            <p class="no-doctors">Врачи по вашему запросу не найдены.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function filterServices() {
+    const doctorId = document.getElementById('doctorSelect').value;
+    const serviceSelect = document.getElementById('serviceSelect');
+    const options = serviceSelect.querySelectorAll('option');
+
+    options.forEach(option => {
+        if (!option.dataset.doctorId) return;
+        
+        if (!doctorId || option.dataset.doctorId === doctorId) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+    });
+
+    if (doctorId && serviceSelect.value) {
+        const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+        if (selectedOption.dataset.doctorId && selectedOption.dataset.doctorId !== doctorId) {
+            serviceSelect.value = "";
+        }
+    }
+}
+
+function selectSlot(btn, slotId, doctorId) {
+    // Находим карточку конкретного врача
+    const parentCard = btn.closest('.doctor-card');
+    
+    // Снимаем класс active у всех кнопок времён этой карточки
+    parentCard.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active'));
+    
+    // Делаем кликнутую кнопку активной
+    btn.classList.add('active');
+    
+    // Записываем ID выбранного слота в скрытый input формы
+    const inputField = document.getElementById('selectedSlotInput_' + doctorId);
+    if (inputField) {
+        inputField.value = slotId;
+    }
+}
+
+function validateBookingForm(form) {
+    const slotInput = form.querySelector('input[name="slot"]');
+    if (!slotInput || !slotInput.value) {
+        alert('Пожалуйста, выберите время (окошко) для записи!');
+        return false;
+    }
+    return true;
+}
+
+document.addEventListener('DOMContentLoaded', filterServices);
+</script>
+{% endblock %}

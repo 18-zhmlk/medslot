@@ -1,0 +1,236 @@
+:root {
+    --primary: #005b82;
+    --light-blue: #d0d7de;
+    --white: #ffffff;
+    --text-dark: #222222;
+    --radius: 12px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* 
+   ВАЖНО: Применяем шрифт Montserrat только к блоку записи, 
+   чтобы не перебивать голубой фон и стили хедера/навигации из main.css 
+*/
+.booking-container,
+.booking-container * {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e9eff2;
+    color: var(--text-dark);
+}
+
+.booking-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.auth-error {
+    background: #fff0f0;
+    color: #a00000;
+    padding: 12px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Форма фильтров */
+.filter-card {
+    background: var(--white);
+    padding: 10px 14px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Строгий стиль для SELECT и INPUT[TYPE="DATE"] */
+.filter-card select,
+.filter-card input[type="date"] {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--light-blue);
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: var(--white);
+    color: #444;
+    outline: none;
+    box-sizing: border-box !important;
+}
+
+.filter-card select:focus,
+.filter-card input[type="date"]:focus {
+    border-color: var(--primary);
+}
+
+/* Кастомная стрелка для select */
+.filter-card select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 28px;
+}
+
+/* Кнопка "Найти" */
+.filter-card .btn-search {
+    flex: 0 0 auto !important;
+    height: 42px;
+    padding: 0 28px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.filter-card .btn-search:hover {
+    background: #004461;
+}
+
+/* Карточки врачей */
+.doctors-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.doctor-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.avatar-img {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f0f4f8;
+}
+
+.doctor-info {
+    flex: 1;
+}
+
+.doctor-name {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.doctor-specialty {
+    font-weight: 500;
+    color: #666;
+}
+
+.service-title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 6px;
+}
+
+.slots-label {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+.slots-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.slot-btn {
+    padding: 6px 14px;
+    border: 1.5px solid var(--primary);
+    background: #EAF4F9;
+    color: var(--primary);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.slot-btn.active {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn-book {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    align-self: center;
+    transition: background-color 0.2s;
+}
+
+.btn-book:hover {
+    background: #004461;
+}
+
+.no-slots {
+    font-size: 13px;
+    color: #999;
+}
+
+.no-doctors {
+    text-align: center;
+    color: #666;
+}
+
+.guest-inputs {
+    margin-top: 10px;
+}
+
+.guest-inputs input {
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 8px 12px;
+    border: 1px solid var(--light-blue);
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+}
+
+.guest-inputs input:focus {
+    border-color: var(--primary);
+}

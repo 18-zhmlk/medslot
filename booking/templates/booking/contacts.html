@@ -1,0 +1,77 @@
+{% extends "booking/base.html" %}
+{% load static %}
+
+{% block title %}Контакты — Lumi Clinic{% endblock %}
+
+{% block content %}
+<div class="booking-container" style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
+    <h1 class="page-title" style="margin-bottom: 30px;">Контакты</h1>
+
+    <!-- Сообщение об успехе -->
+    {% if request.GET.success %}
+        <div style="background: #e6f4ea; color: #137333; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: 500; text-align: center;">
+            Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.
+        </div>
+    {% endif %}
+
+    <!-- Сообщение об ошибке валидации -->
+    {% if error %}
+        <div style="background: #fff0f0; color: #c5221f; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: 500; text-align: center; border: 1px solid #fad2d2;">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+        <!-- Карточка "Как нас найти" -->
+        <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);">
+            <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #015A84;">Как нас найти</h2>
+            
+            <p style="margin-bottom: 15px; font-size: 14px; color: #666;"><strong>АДРЕС</strong><br><span style="color: #272727;">г. Астана, ул. Достык, 12</span></p>
+            <p style="margin-bottom: 15px; font-size: 14px; color: #666;"><strong>ТЕЛЕФОН</strong><br><span style="color: #272727;">+7 (700) 123-45-67</span></p>
+            <p style="margin-bottom: 15px; font-size: 14px; color: #666;"><strong>EMAIL</strong><br><span style="color: #272727;">info@lumiclinic.kz</span></p>
+            <p style="font-size: 14px; color: #666;"><strong>ГРАФИК РАБОТЫ</strong><br><span style="color: #272727;">Пн — Пт: 08:00 – 20:00<br>Сб — Вс: 09:00 – 18:00</span></p>
+        </div>
+
+        <!-- Карточка "Обратная связь" -->
+        <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);">
+            <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #015A84;">Обратная связь</h2>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Ваше имя</label>
+                    <input type="text" name="name" placeholder="Иван Иванов" required style="width: 90%; height: 42px; padding: 0 14px; border: 1.5px solid #BAD1DF; border-radius: 10px; outline: none; font-size: 14px;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Email или Телефон</label>
+                    <input type="text" name="contact_info" placeholder="example@mail.com или +7..." required style="width: 90%; height: 42px; padding: 0 14px; border: 1.5px solid #BAD1DF; border-radius: 10px; outline: none; font-size: 14px;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Сообщение</label>
+                    <textarea name="message" placeholder="Напишите ваш вопрос или отзыв..." required style="width: 90%; height: 110px; padding: 12px 14px; border: 1.5px solid #BAD1DF; border-radius: 10px; outline: none; font-size: 14px; resize: none;"></textarea>
+                </div>
+
+                <button type="submit" style="width: 100%; height: 44px; background: #015A84; color: white; border: none; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background 0.2s;">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Блок с картой Google Maps -->
+    <div style="background: white; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); overflow: hidden;">
+        <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 15px; color: #015A84;">Мы на карте</h2>
+        <div style="width: 100%; height: 350px; border-radius: 10px; overflow: hidden;">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2503.4939223780336!2d71.427845!3d51.128423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585c5b8b9f71b%3A0xf69eb8b3ebcd7bf3!2z0YPQu9C40YbQsCDQlNCv0YHRgtC10L0sIDEyLCDQkNGA0LjQsdC40Y0gMDIwMDAw!5e0!3m2!1sru!2skz!4v1700000000000!5m2!1sru!2skz" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</div>
+{% endblock %}

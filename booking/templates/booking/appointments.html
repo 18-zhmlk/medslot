@@ -1,0 +1,129 @@
+{% extends "booking/base.html" %}
+{% load static %}
+
+{% block title %}Мои записи — Lumi Clinic{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/appointments.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="appointments-container">
+    <h1>Мои записи</h1>
+
+    {% if appointments %}
+        <div class="appointments">
+            {% for appointment in appointments %}
+                <div class="appointment-card"
+                     data-id="{{ appointment.id }}"
+                     data-doctor="{{ appointment.doctor.name }}"
+                     data-specialty="{{ appointment.doctor.specialty }}"
+                     data-service="{{ appointment.service.name }}"
+                     data-date="{{ appointment.slot.date|date:'d.m.Y' }}"
+                     data-time="{{ appointment.slot.time|time:'H:i' }}"
+                     onclick="openModalFromCard(this)">
+                    <div class="doctor">{{ appointment.doctor.name }}</div>
+                    <div class="specialty">{{ appointment.doctor.specialty }}</div>
+                    <div class="date">{{ appointment.slot.date|date:"d.m.Y" }} в {{ appointment.slot.time|time:"H:i" }}</div>
+                    <div class="service">{{ appointment.service.name }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty">
+            <p>У вас пока нет активных записей.</p>
+            <a href="{% url 'home' %}">Записаться на приём</a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Модальное окно деталей записи -->
+<div class="modal" id="appointmentModal">
+    <div class="modal-content">
+        <button type="button" class="close-button" onclick="closeModal()">×</button>
+        <h2>Детали записи</h2>
+
+        <div class="modal-row"><span>Врач</span><strong id="modalDoctor"></strong></div>
+        <div class="modal-row"><span>Специальность</span><strong id="modalSpecialty"></strong></div>
+        <div class="modal-row"><span>Услуга</span><strong id="modalService"></strong></div>
+        <div class="modal-row"><span>Дата и время</span><strong id="modalDate"></strong></div>
+
+        <!-- Кнопка вызывает кастомное подтверждение, а не стандартный confirm() -->
+        <button type="button" class="cancel-button" onclick="showConfirmModal()">Отменить запись</button>
+    </div>
+</div>
+
+<!-- Модальное окно ПОДТВЕРЖДЕНИЯ отмены -->
+<div class="modal" id="confirmModal">
+    <div class="modal-content confirm-modal-content">
+        <h2>Отмена записи</h2>
+        <p class="confirm-text">Вы уверены, что хотите отменить вашу запись?</p>
+        
+        <div class="confirm-buttons">
+            <button type="button" class="btn-secondary" onclick="closeConfirmModal()">Назад</button>
+            
+            <form id="cancelForm" method="POST" action="">
+                {% csrf_token %}
+                <button type="submit" class="btn-danger-solid">Да, отменить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentAppointmentId = null;
+
+function openModalFromCard(card) {
+    currentAppointmentId = card.dataset.id;
+    const doctor = card.dataset.doctor;
+    const specialty = card.dataset.specialty;
+    const service = card.dataset.service;
+    const date = card.dataset.date;
+    const time = card.dataset.time;
+
+    document.getElementById('modalDoctor').textContent = doctor;
+    document.getElementById('modalSpecialty').textContent = specialty;
+    document.getElementById('modalService').textContent = service;
+    document.getElementById('modalDate').textContent = date + " в " + time;
+    
+    document.getElementById('appointmentModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('appointmentModal').style.display = 'none';
+}
+
+// Показать окно подтверждения отмены
+function showConfirmModal() {
+    // Скрываем первое окно деталей
+    document.getElementById('appointmentModal').style.display = 'none';
+    
+    // Настраиваем форму отмены
+    const cancelForm = document.getElementById('cancelForm');
+    cancelForm.action = "{% url 'cancel_appointment' appointment_id=0 %}".replace('0', currentAppointmentId);
+    
+    // Показываем окно подтверждения
+    document.getElementById('confirmModal').style.display = 'flex';
+}
+
+// Закрыть окно подтверждения и вернуться к деталям
+function closeConfirmModal() {
+    document.getElementById('confirmModal').style.display = 'none';
+    document.getElementById('appointmentModal').style.display = 'flex';
+}
+
+// Закрытие модальных окон при клике вне их области
+window.onclick = function(event) {
+    const modal = document.getElementById('appointmentModal');
+    const confirmModal = document.getElementById('confirmModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+    if (event.target === confirmModal) {
+        closeConfirmModal();
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lumi Clinic{% endblock %}</title>
+    
+    <!-- Подключаем независимый файл стилей каркаса -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    <!-- Каждая дочерняя страница подключает свои уникальные стили -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<header>
+    <a href="{% url 'main' %}" class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            <path d="M12 11v6M9 14h6"/>
+        </svg>
+        Lumi Clinic
+    </a>
+    <nav>
+        <a href="{% url 'main' %}">Главная</a>
+        <a href="{% url 'home' %}">Записаться</a>
+        <a href="{% url 'contacts' %}">Контакты</a>
+        <a href="{% url 'appointments' %}">Мои записи</a>
+        <a href="{% url 'profile' %}" class="profile-icon">👤</a>
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-block brand-block">
+            <div class="footer-logo">Lumi Clinic</div>
+            <p class="footer-desc">Современная клиника заботы о вашем здоровье.</p>
+        </div>
+
+        <div class="footer-block links-block">
+            <h3>Навигация</h3>
+            <ul>
+                <li><a href="{% url 'main' %}">Главная</a></li>
+                <li><a href="{% url 'home' %}">Записаться на приём</a></li>
+                <li><a href="{% url 'contacts' %}">Контакты</a></li>
+                <li><a href="{% url 'appointments' %}">Мои записи</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-block contacts-block">
+            <h3>Контакты</h3>
+            <p><strong>Адрес:</strong> г. Астана, ул. Достык, 12</p>
+            <p><strong>Телефон:</strong> +7 (700) 123-45-67</p>
+            <p><strong>Email:</strong> info@lumiclinic.kz</p>
+        </div>
+    </div> <!-- Конец .footer-container -->
+
+    <div class="footer-bottom">
+        <p>&copy; {% now "Y" %} Lumi Clinic. Все права защищены.</p>
+    </div>
+</footer>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

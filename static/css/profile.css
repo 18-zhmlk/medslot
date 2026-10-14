@@ -1,0 +1,169 @@
+.profile-container {
+    max-width: 550px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.profile-card {
+    background: var(--white, #fff);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid var(--light-blue, #BAD1DF);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-blue, #BAD1DF);
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--light-blue, #BAD1DF);
+    color: var(--primary, #015A84);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.profile-field {
+    margin-bottom: 20px;
+}
+
+.profile-field span {
+    display: block;
+    font-size: 13px;
+    color: var(--dark-gray, #353232);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.profile-field strong {
+    font-size: 17px;
+    color: var(--black, #000);
+}
+
+.phone-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-edit {
+    background: none;
+    border: none;
+    color: var(--primary, #015A84);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-edit:hover {
+    background: var(--light-gray, #E6ECEF);
+}
+
+.profile-actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    flex: 1;
+}
+
+.btn-outline {
+    background: var(--white, #fff);
+    border: 1px solid var(--dark-gray, #353232);
+    color: var(--dark-gray, #353232);
+}
+
+.btn-outline:hover {
+    background: var(--light-gray, #E6ECEF);
+    color: var(--black, #000);
+}
+
+.btn-primary {
+    background: var(--primary, #015A84);
+    color: var(--white, #fff);
+}
+
+.btn-primary:hover {
+    background: #014565;
+}
+
+.btn-danger {
+    background: var(--danger-bg, #FFEBEE);
+    color: var(--danger, #D32F2F);
+    border: 1px solid var(--danger, #D32F2F);
+}
+
+.btn-danger:hover {
+    background: var(--danger, #D32F2F);
+    color: var(--white, #fff);
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--white, #fff);
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    box-sizing: border-box;
+    border: 1px solid var(--light-blue, #BAD1DF);
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid var(--light-blue, #BAD1DF);
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    outline: none;
+    margin-top: 8px;
+}
+
+.form-input:focus {
+    border-color: var(--primary, #015A84);
+}

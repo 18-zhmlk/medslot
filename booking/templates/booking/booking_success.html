@@ -1,0 +1,25 @@
+{% extends "booking/base.html" %}
+{% load static %}
+
+{% block title %}Успешная запись — Lumi Clinic{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/appointments.css' %}?v=2.4">
+{% endblock %}
+
+{% block content %}
+<div class="appointments-container" style="max-width: 650px; justify-content: center; min-height: 72vh; font-family: 'Montserrat', sans-serif;">
+    <div class="empty" style="margin: auto; width: 100%; text-align: center; font-family: 'Montserrat', sans-serif;">
+        <div style="font-size: 52px; margin-bottom: 15px;">🎉</div>
+        <h2 style="color: var(--black); margin-bottom: 15px; font-size: 26px; font-family: 'Montserrat', sans-serif;">Вы успешно записаны!</h2>
+        <p style="margin-bottom: 30px; line-height: 1.6; color: var(--dark-gray); font-size: 15px; font-family: 'Montserrat', sans-serif;">
+            Детали визита к врачу <strong>{{ appointment.doctor.name }}</strong> на <strong>{{ appointment.slot.date|date:"d.m.Y" }} в {{ appointment.slot.time|time:"H:i" }}</strong> успешно сохранены.<br>
+            Мы вам напомни о записи за 6 часов до неё. Ждем вас в Lumi Clinic!
+        </p>
+        <div style="display: flex; gap: 15px; justify-content: center; font-family: 'Montserrat', sans-serif;">
+            <a href="{% url 'appointments' %}" style="margin: 0; padding: 12px 24px; font-family: 'Montserrat', sans-serif;">Мои записи</a>
+            <a href="{% url 'main' %}" style="margin: 0; padding: 12px 24px; background: var(--light-blue); color: var(--primary); font-family: 'Montserrat', sans-serif;">На главную</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

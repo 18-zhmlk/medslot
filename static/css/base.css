@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --base-primary: #015A84;
+    --base-light-blue: #BAD1DF;
+    --base-bg-color: #E6ECEF;
+    --base-text-dark: #272727;
+    --base-white: #FFFFFF;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--base-bg-color);
+    color: var(--base-text-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Шапка (навигация) на всех страницах */
+header {
+    background-color: var(--base-light-blue);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--base-primary);
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--base-text-dark);
+    font-weight: 620;
+    font-size: 18px;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: var(--base-primary);
+}
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid var(--base-text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--base-text-dark);
+    font-size: 14px;
+}
+
+/* Подвал на всех страницах */
+.site-footer {
+    background-color: #013b56;
+    color: #d1e2ec;
+    padding-top: 50px;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 40px 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 40px;
+}
+
+.footer-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--base-white);
+    margin-bottom: 15px;
+}
+
+.footer-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #a8c4d4;
+}
+
+.footer-block h3 {
+    color: var(--base-white);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.footer-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-block ul li {
+    margin-bottom: 10px;
+}
+
+.footer-block ul li a {
+    color: #a8c4d4;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.footer-block ul li a:hover {
+    color: var(--base-white);
+}
+
+.contacts-block p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+    color: #a8c4d4;
+}
+
+.contacts-block strong {
+    color: var(--base-white);
+}
+
+.footer-bottom {
+    background-color: #012b3f;
+    text-align: center;
+    padding: 18px 20px;
+    font-size: 12px;
+    color: #7a9eb3;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    header {
+        padding: 15px 20px;
+    }
+    nav {
+        gap: 15px;
+    }
+}
